@@ -16,6 +16,7 @@ WORKDIR /app
 # 从上一步拷贝 node_modules
 COPY --from=deps /app/node_modules ./node_modules
 # 拷贝其余所有源码（此时才会拷贝频繁变动的 src 目录）
+# 在子目录方案下，这里的 . 指的是 nestjs-app/ 目录下的所有内容
 COPY . .
 
 # 执行打包命令
