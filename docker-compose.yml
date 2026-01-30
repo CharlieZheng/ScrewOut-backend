@@ -5,6 +5,10 @@ services:
     build:
       context: ./mysql        # 指向子目录
       dockerfile: Dockerfile
+       # 如果 MySQL 的 Dockerfile 需要构建参数，可以在这里添加
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     container_name: screw_out-mysql
     restart: always
     ports:
