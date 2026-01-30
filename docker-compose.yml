@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  db:
+    build:
+      context: .
+      dockerfile: mysql.dockerfile
+    container_name: screw_out-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - /var/lib/screw_out/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: hello_world_db
+
+  # NestJS Application Service
+  api:
+    build:
+    # context 表示去哪里找 *.dockerfile
+      context: .
+      dockerfile: nestjs.dockerfile
+    container_name: screw_out-nestjs
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: password123
+      DB_NAME: hello_world_db
