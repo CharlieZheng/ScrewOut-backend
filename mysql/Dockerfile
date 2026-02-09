@@ -2,7 +2,7 @@
 # 声明接收来自 Compose 的参数
 ARG DB_ROOT_PASSWORD
 ARG DB_NAME
-FROM mysql:8.0
+FROM docker.m.daocloud.io/library/mysql:8.0
 
 # Set environment variables for MySQL
 ENV MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}

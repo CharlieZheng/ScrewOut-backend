@@ -1,5 +1,6 @@
 # --- Stage 1: Base & Dependency Installation ---
-FROM node:20-alpine AS deps
+FROM docker.m.daocloud.io/library/node:20-alpine AS deps
+
 WORKDIR /app
 
 # 首先只拷贝 package.json 和 lock 文件
@@ -10,7 +11,7 @@ COPY package*.json ./
 RUN npm ci
 
 # --- Stage 2: Source Code & Build ---
-FROM node:20-alpine AS builder
+FROM docker.m.daocloud.io/library/node:20-alpine AS builder
 WORKDIR /app
 
 # 从上一步拷贝 node_modules
@@ -23,7 +24,7 @@ COPY . .
 RUN npm run build
 
 # --- Stage 3: Clean Production Dependencies ---
-FROM node:20-alpine AS prod-deps
+FROM docker.m.daocloud.io/library/node:20-alpine AS prod-deps
 WORKDIR /app
 
 COPY package*.json ./
@@ -31,7 +32,7 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # --- Stage 4: Final Runtime ---
-FROM node:20-alpine
+FROM docker.m.daocloud.io/library/node:20-alpine
 WORKDIR /app
 
 # 生产环境标识
