@@ -8,7 +8,16 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserModule} from "./module/UserModule";
 
 @Module({
-    imports: [  UserModule],
+    imports: [ TypeOrmModule.forRoot({
+        type: 'mysql',
+        host: 'db',          // docker 用 db，本地可能是 localhost
+        port: 3306,
+        username: 'root',
+        password: 'password123',
+        database: 'screw_out',
+        entities: [User],
+        synchronize: true,
+    }), UserModule],
     controllers: [AppController],
     providers: [AppService],
 })
