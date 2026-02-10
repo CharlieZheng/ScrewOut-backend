@@ -14,6 +14,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      # 冒号前面是物理机的目录，后面是容器内目录
       - /var/lib/screw_out/mysql:/var/lib/mysql
     environment:
       # 从 .env 文件自动读取变量
@@ -29,6 +30,9 @@ services:
     restart: always
     ports:
       - "${APP_PORT}:3000"
+    volumes:
+      # 冒号前面是物理机的目录，后面是容器内目录
+      - ./nestjs-app/certs:/app/certs:ro # 将宿主机证书文件夹挂载到容器内
     depends_on:
       - db
     environment:
