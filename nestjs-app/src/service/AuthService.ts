@@ -22,8 +22,8 @@ export class AuthService {
     }
 
     async wechatLogin(code: string) {
-        const appId = 'YOUR_APP_ID';
-        const appSecret = 'YOUR_APP_SECRET';
+        const appId = 'wxb81f0c8de304d660';
+        const appSecret = 'cd693a9d0524f886e8621b7b02d4e50a';
 
         const wxUrl = `https://api.weixin.qq.com/sns/jscode2session?appid=${appId}&secret=${appSecret}&js_code=${code}&grant_type=authorization_code`;
 
