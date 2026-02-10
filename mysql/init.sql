@@ -1,6 +1,6 @@
 -- Create database if not exists
-CREATE DATABASE IF NOT EXISTS hello_world_db;
-USE hello_world_db;
+CREATE DATABASE IF NOT EXISTS screw_out;
+USE screw_out;
 
 -- Create a sample table
 CREATE TABLE IF NOT EXISTS users (
