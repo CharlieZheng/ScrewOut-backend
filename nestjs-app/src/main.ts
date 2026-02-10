@@ -7,8 +7,8 @@ async function bootstrap() {
     // 1. 读取证书文件
     // 注意：如果是 Docker 运行，这里的路径是容器内的路径
     const httpsOptions = {
-        key: fs.readFileSync(path.join(__dirname, '../certs/screw-out.gg-bond.fun.key')),
-        cert: fs.readFileSync(path.join(__dirname, '../certs/screw-out.gg-bond.fun.pem')),
+        key: fs.readFileSync('/app/certs/screw-out.gg-bond.fun.key'),
+        cert: fs.readFileSync('/app/certs/screw-out.gg-bond.fun_bundle.pem'),
     };
     const app = await NestFactory.create(AppModule,{httpsOptions});
 
