@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {MiddlewareConsumer, Module} from '@nestjs/common';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {AuthService} from "./service/AuthService";
@@ -6,6 +6,7 @@ import {AuthController} from "./controller/AuthController";
 import {User} from "./entity/User";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserModule} from "./module/UserModule";
+import {LoggingMiddleware} from "./middleware/LoggingMiddleware";
 
 @Module({
     imports: [ TypeOrmModule.forRoot({
@@ -22,4 +23,9 @@ import {UserModule} from "./module/UserModule";
     providers: [AppService],
 })
 export class AppModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(LoggingMiddleware)
+            .forRoutes('*'); // 监听所有路由
+    }
 }
