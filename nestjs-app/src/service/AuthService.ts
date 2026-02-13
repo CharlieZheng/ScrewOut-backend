@@ -16,7 +16,7 @@ import {WechatAccount} from "../entity/WechatAccount";
 export class AuthService {
     constructor(
         @InjectRepository(WechatAccount)
-        private userRepository: Repository<WechatAccount>,
+        private wechatAccountRepository: Repository<WechatAccount>,
         private jwtService: JwtService,
     ) {
     }
@@ -37,21 +37,18 @@ export class AuthService {
 
             const accessToken = this.jwtService.sign({openid});
 
-            let user = await this.userRepository.findOne({where: {openid}});
+            let user = await this.wechatAccountRepository.findOne({where: {openid}});
 
             if (!user) {
-                user = this.userRepository.create({
-                    openid,
-                    session_key,
-                    token: accessToken,
+                user = this.wechatAccountRepository.create({
+                    "openid": openid  ,
+                    "session_key": session_key
                 });
             } else {
                 user.session_key = session_key;
-                user.token = accessToken;
-                user.last_login_at = new Date();
             }
 
-            await this.userRepository.save(user);
+            await this.wechatAccountRepository.save(user);
 
             return {
                 success: true,
