@@ -8,15 +8,15 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {JwtService} from '@nestjs/jwt';
 import axios from 'axios';
-import {User} from "../entity/User";
+import {WechatAccount} from "../entity/WechatAccount";
 // 如果分文件，这里需要引入上面的 User 实体
 // import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectRepository(User)
-        private userRepository: Repository<User>,
+        @InjectRepository(WechatAccount)
+        private userRepository: Repository<WechatAccount>,
         private jwtService: JwtService,
     ) {
     }

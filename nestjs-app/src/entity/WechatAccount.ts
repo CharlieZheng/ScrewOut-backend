@@ -4,18 +4,17 @@
  * ==========================================
  */
 import {Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn} from 'typeorm';
-import * as trace_events from "node:trace_events";
 
-@Entity('user')
-export class User {
+@Entity('wechat_account')
+export class WechatAccount {
     @PrimaryColumn()
     id:number  ;
     @Column()
-    nickname: string ;
-    @Column({nullable: true   })
-    avatar: string;
+    user_id: number ;
+    @Column()
+    openid: string;
     @Column({nullable: true})
 
-    gender: string;
+    session_key: string;
 
 }

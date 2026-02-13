@@ -3,7 +3,7 @@ import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {AuthService} from "./service/AuthService";
 import {AuthController} from "./controller/AuthController";
-import {User} from "./entity/User";
+import {WechatAccount} from "./entity/WechatAccount";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserModule} from "./module/UserModule";
 import {LoggingMiddleware} from "./middleware/LoggingMiddleware";
@@ -16,7 +16,7 @@ import {LoggingMiddleware} from "./middleware/LoggingMiddleware";
         username: 'root',
         password: 'password123',
         database: 'screw_out',
-        entities: [User],
+        entities: [WechatAccount],
         synchronize: true,
     }), UserModule],
     controllers: [AppController],

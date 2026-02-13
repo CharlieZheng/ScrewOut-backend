@@ -6,16 +6,20 @@
 import {Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn} from 'typeorm';
 import * as trace_events from "node:trace_events";
 
-@Entity('user')
-export class User {
+@Entity('level_record')
+export class LevelRecord {
     @PrimaryColumn()
     id:number  ;
     @Column()
-    nickname: string ;
-    @Column({nullable: true   })
-    avatar: string;
-    @Column({nullable: true})
+    user_id:number  ;
+    @Column()
+    level_index: number ;
+    @Column()
+    game_start_time: number ;
+    @Column()
+    game_end_time: number ;
+    @Column()
+    time_cost_in_seconds: number ;
 
-    gender: string;
 
 }
