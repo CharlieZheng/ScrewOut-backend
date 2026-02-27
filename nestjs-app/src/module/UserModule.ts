@@ -7,13 +7,17 @@ import {AuthController} from "../controller/AuthController";
 import {AppService} from "../app.service";
 import {AuthService} from "../service/AuthService";
 import {JwtModule} from "@nestjs/jwt";
+import {User} from "../entity/User";
+import {UserGameProgress} from "../entity/UserGameProgress";
+import {LevelRecord} from "../entity/LevelRecord";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([WechatAccount]), JwtModule.register({
+    imports: [TypeOrmModule.forFeature([WechatAccount, User, UserGameProgress, LevelRecord]), JwtModule.register({
         secret: 'your-secret',
-        signOptions: { expiresIn: '7d' },
+        signOptions: {expiresIn: '7d'},
     }),],
-    providers: [AuthService ],
-    controllers: [ AuthController],
- })
-export class UserModule {}
+    providers: [AuthService],
+    controllers: [AuthController],
+})
+export class UserModule {
+}
