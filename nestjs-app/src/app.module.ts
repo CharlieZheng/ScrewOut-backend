@@ -22,7 +22,7 @@ import {User} from "./entity/User";
         username: 'root',
         password: 'password123',
         database: 'screw_out',
-        entities: [WechatAccount,User, UserGameProgress, LevelRecord],
+        entities: [WechatAccount,User, LevelRecord],
         synchronize: true,
     }), UserModule, PassportModule,
         JwtModule.register({
