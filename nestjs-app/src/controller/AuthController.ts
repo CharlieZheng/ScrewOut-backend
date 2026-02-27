@@ -30,7 +30,7 @@ export class AuthController {
     }
 
 // 公开接口：用于登录
-    @Post('login')
+    @Post('test_login')
     async testLogin(@Body() body: any) {
         // 实际应校验 body.password，这里直接模拟一个用户
         const user = {id: 10086, username: body.username || 'guest'};
