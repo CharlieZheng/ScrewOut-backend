@@ -10,6 +10,9 @@ import {LoggingMiddleware} from "./middleware/LoggingMiddleware";
 import {JwtModule} from "@nestjs/jwt";
 import {PassportModule} from "@nestjs/passport";
 import {JwtStrategy} from "./strategy/jwt.strategy";
+import {UserGameProgress} from "./entity/UserGameProgress";
+import {LevelRecord} from "./entity/LevelRecord";
+import {User} from "./entity/User";
 
 @Module({
     imports: [ TypeOrmModule.forRoot({
@@ -19,7 +22,7 @@ import {JwtStrategy} from "./strategy/jwt.strategy";
         username: 'root',
         password: 'password123',
         database: 'screw_out',
-        entities: [WechatAccount],
+        entities: [WechatAccount,User, UserGameProgress, LevelRecord],
         synchronize: true,
     }), UserModule, PassportModule,
         JwtModule.register({
