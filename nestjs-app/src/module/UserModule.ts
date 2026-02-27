@@ -14,7 +14,7 @@ import {LevelRecord} from "../entity/LevelRecord";
 @Module({
     imports: [TypeOrmModule.forFeature([WechatAccount, User, UserGameProgress, LevelRecord]), JwtModule.register({
         secret: 'SECRET_KEY_123456',
-        signOptions: {expiresIn: '7d'},
+        signOptions: {expiresIn: '1h'},
     }),],
     providers: [AuthService],
     controllers: [AuthController],
