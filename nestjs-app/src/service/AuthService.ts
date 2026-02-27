@@ -3,12 +3,13 @@
  * 2. 业务逻辑处理服务 (建议存放于 auth.service.ts)
  * ==========================================
  */
-import {Injectable, HttpException, HttpStatus} from '@nestjs/common';
+import {Injectable, HttpException, HttpStatus, Post, Body} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {JwtService} from '@nestjs/jwt';
 import axios from 'axios';
 import {WechatAccount} from "../entity/WechatAccount";
+import {User} from '../entity/User'; // 确保路径正确
 // 如果分文件，这里需要引入上面的 User 实体
 // import { User } from './user.entity';
 
@@ -16,7 +17,8 @@ import {WechatAccount} from "../entity/WechatAccount";
 export class AuthService {
     constructor(
         @InjectRepository(WechatAccount)
-        private wechatAccountRepository: Repository<WechatAccount>,
+        private wechatAccountRepository: Repository<WechatAccount>, @InjectRepository(User)
+        private userRepository: Repository<User>,
         private jwtService: JwtService,
     ) {
     }
@@ -41,7 +43,7 @@ export class AuthService {
 
             if (!user) {
                 user = this.wechatAccountRepository.create({
-                    "openid": openid  ,
+                    "openid": openid,
                     "session_key": session_key
                 });
             } else {
@@ -58,4 +60,19 @@ export class AuthService {
             throw new HttpException(e.message || '登录服务异常', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+// 模拟登录成功后签发 JWT
+    async login(user: any) {
+        const payload = {username: user.username, sub: user.id};
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
+    }
+
+    // 根据 ID 查找用户
+    async findOne(id: number): Promise<User | null> {
+        return await this.userRepository.findOneBy({id});
+    }
+
 }
