@@ -20,11 +20,9 @@ import {User} from "./User";
 export class LevelRecord {
     @PrimaryColumn()
     id:number  ;
-    @OneToOne(() => User, {
-        onDelete: 'CASCADE',
-    })
-    @JoinColumn({ name: 'user_id' })
-    user: User;
+    @Column()
+    user_id: number ; 
+
     @Column()
     level_index: number ;
     @Column()

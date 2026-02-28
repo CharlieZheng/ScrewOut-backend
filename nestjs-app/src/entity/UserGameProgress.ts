@@ -11,11 +11,9 @@ import {User} from "./User";
 export class UserGameProgress {
 
 
-    @ManyToOne(() => User, {
-        onDelete: 'CASCADE',
-    })
-    @JoinColumn({ name: 'user_id' })
-    user: User;
+
+    @Column()
+    user_id: number ;
     @Column()
     current_level_index: number ;
 
