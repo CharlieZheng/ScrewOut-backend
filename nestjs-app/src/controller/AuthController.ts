@@ -43,7 +43,7 @@ export class AuthController {
         // 1. 从 req.user 中获取 JWT 校验后存入的 id
         // 注意：这里的字段名要看你在 jwt.strategy.ts 的 validate 方法里返回了什么
         const userId = req.user.userId;
-
+        console.log(`userId: ${userId}`)
         // 2. 去数据库查询完整信息
         const user = await this.authService.findOne(userId);
 

@@ -9,12 +9,8 @@ import {User} from "./User";
 
 @Entity('user_game_progress')
 export class UserGameProgress {
-
-
-
+    @PrimaryColumn()
+    user_id: number;
     @Column()
-    user_id: number ;
-    @Column()
-    current_level_index: number ;
-
+    current_level_index: number;
 }

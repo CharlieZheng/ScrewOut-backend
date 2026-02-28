@@ -64,8 +64,15 @@ export class AuthService {
 
 // 模拟登录成功后签发 JWT
     async login(user: any) {
-        const payload = {username: user.username, sub: user.id};
-        return {
+        // 👇 在这里调用 insert
+       let insertResult = await this.userRepository.insert({
+            nickname: user.username,
+            avatar: "" ,
+            gender:""
+         });
+       console .log( `insertResult: ${JSON.stringify(insertResult )}`)
+        const payload = {username: user.username, sub: insertResult.identifiers[0].id };
+         return {
             access_token: this.jwtService.sign(payload),
         };
     }
