@@ -25,9 +25,10 @@ export class LevelRecord {
 
     @Column()
     level_index: number ;
-    @Column()
+    @Column({ type: 'bigint', comment: '游戏开始时间戳(毫秒)' })
+
     game_start_time: number ;
-    @Column()
+    @Column({ type: 'bigint', comment: '游戏开始时间戳(毫秒)' })
     game_end_time: number ;
 
 
