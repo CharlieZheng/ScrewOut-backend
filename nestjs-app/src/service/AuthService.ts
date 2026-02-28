@@ -71,7 +71,8 @@ export class AuthService {
             gender:""
          });
        console .log( `insertResult: ${JSON.stringify(insertResult )}`)
-        const payload = {username: user.username, sub: insertResult.identifiers[0].id };
+        // const payload = {username: user.username, sub: insertResult.identifiers[0].id };
+        const payload = {username: user.username, sub: 6  };
          return {
             access_token: this.jwtService.sign(payload),
         };

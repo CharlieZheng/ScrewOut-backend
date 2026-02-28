@@ -3,17 +3,18 @@
  * 3. 路由控制器 (建议存放于 auth.controller.ts)
  * ==========================================
  */
-import {Injectable, HttpException, HttpStatus, Get, UseGuards, UnauthorizedException} from '@nestjs/common';
+import {Injectable, HttpException, HttpStatus, Get, UseGuards, UnauthorizedException, Req} from '@nestjs/common';
 
 import {Controller, Post, Body, Request} from '@nestjs/common';
 import {AuthService} from "../service/AuthService";
 import {AuthGuard} from "@nestjs/passport";
+import {LevelRecordService} from "../service/LevelRecordService";
 // 如果分文件，这里需要引入上面的 AuthService
 // import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {
+    constructor(private readonly authService: AuthService,private readonly levelRecordService: LevelRecordService ) {
     }
 
     @Post('login')
@@ -55,6 +56,40 @@ export class AuthController {
             code: 200,
             data: user,
             message: '获取成功'
+        };
+    }
+    @UseGuards(AuthGuard('jwt'))
+
+    @Post('save_record')
+    async create(@Request() req, @Body() body: any) {
+
+        const result = await this.levelRecordService.createRecord({
+
+            user_id: req.user.userId,
+            level_index: body.level_index,
+            game_start_time: body.game_start_time,
+            game_end_time: body.game_end_time,
+        });
+
+        return {
+            message: 'insert success',
+            result
+        };
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Get('levels') // 请求路径：GET /game/levels
+    async getMyLevels(@Req() req) {
+        // 这里的 req.user 来自 JwtStrategy 的 validate 方法
+        // 假设你存入的是 userId
+        const userId = req.user.userId;
+
+        const records = await this.levelRecordService .findAllByUser(userId);
+
+        return {
+            code: 200,
+            message: '查询成功',
+            data: records,
         };
     }
 }
