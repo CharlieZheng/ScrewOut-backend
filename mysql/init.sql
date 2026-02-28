@@ -1,17 +1,17 @@
 -- Create database if not exists
 CREATE DATABASE IF NOT EXISTS screw_out;
 USE screw_out;
+/*
+Create a sample table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Create a sample table
--- CREATE TABLE IF NOT EXISTS users (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     username VARCHAR(255) NOT NULL,
---     email VARCHAR(255) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
-
--- Insert a dummy record
--- INSERT INTO users (username, email) VALUES ('admin', 'admin@example.com');
+Insert a dummy record
+INSERT INTO users (username, email) VALUES ('admin', 'admin@example.com');
 CREATE TABLE IF NOT EXISTS  user (
                       id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
                       nickname VARCHAR(50),
@@ -60,3 +60,4 @@ CREATE TABLE IF NOT EXISTS login (
                                         REFERENCES user (id)
                                         ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+*/

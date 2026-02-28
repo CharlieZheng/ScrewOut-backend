@@ -17,12 +17,12 @@ import {User} from "./entity/User";
 @Module({
     imports: [ TypeOrmModule.forRoot({
         type: 'mysql',
-        host: 'db',          // docker 用 db，本地可能是 localhost
+        host: '43.139.38.254',          // docker 用 db，本地可能是 localhost
         port: 3306,
         username: 'root',
         password: 'password123',
         database: 'screw_out',
-        entities: [WechatAccount,User, LevelRecord],
+        entities: [WechatAccount,User,UserGameProgress,  LevelRecord],
         synchronize: true,
     }), UserModule, PassportModule,
         JwtModule.register({
