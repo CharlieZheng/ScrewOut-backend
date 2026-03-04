@@ -41,6 +41,13 @@ services:
       DB_USER: root
       DB_PASSWORD: ${DB_ROOT_PASSWORD}
       DB_NAME: ${DB_NAME}
+    healthcheck:
+      # 使用 netcat 命令检查容器内的 3000 端口是否可以被访问
+      test: ["CMD", "nc", "-z", "localhost", "3000"]
+      interval: 10s       # 每 10 秒检查一次
+      timeout: 5s         # 每次检查的超时时间
+      retries: 5          # 连续 5 次失败后，才将容器标记为 unhealthy
+      start_period: 10s   # 容器启动后，等待 10 秒再开始第一次健康检查
 
   nginx:
     image: docker.m.daocloud.io/library/nginx:latest # <-- 换成这一行
@@ -54,4 +61,6 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - /home/ubuntu/Projects/ScrewOut-backend/nestjs-app/certs:/etc/nginx/certs:ro
     depends_on:
-      - api
+      # 不仅等待 api 启动，还要等待它达到健康状态
+      api:
+        condition: service_healthy
