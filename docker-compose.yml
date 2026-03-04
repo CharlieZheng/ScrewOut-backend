@@ -43,7 +43,7 @@ services:
       DB_NAME: ${DB_NAME}
 
   nginx:
-    image: nginx:latest
+    image: docker.m.daocloud.io/library/nginx:latest # <-- 换成这一行
     container_name: screw_out-nginx
     restart: always
     ports:
